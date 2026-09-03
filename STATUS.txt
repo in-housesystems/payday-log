@@ -1,0 +1,16 @@
+IHS Payday Log
+Jack's W-2 piece-rate log. IHS does not invoice the practice.
+
+Live: https://in-housesystems.com/payday-log/
+Repo: in-housesystems/payday-log (master)
+Pages path: /payday-log/ (same live URL)
+
+Static GitHub Pages UI shell. this-browser localStorage only.
+Finished: Case ID (practice work-order) + appliance. No patient identifiers.
+Assigned payday is stored on each item. Weekday changes do not move old work.
+Payroll list: copy / CSV / mailto draft. Never auto-send.
+SAMPLE nightguard $84. Rates must be reviewed before logging.
+
+Not a patient chart. Not HIPAA certified. No PHI in git.
+
+Last ship: grok v1 static shell (replace Codex-era UI).

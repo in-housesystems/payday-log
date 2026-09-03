@@ -4,66 +4,134 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10141c">
+<meta name="description" content="Page not found — IHS Payday Log.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'self'; form-action 'none'; connect-src 'none'; worker-src 'none'; manifest-src 'none'; font-src 'none'; object-src 'none'; frame-src 'none'">
 <base href="/payday-log/">
-<title>IHS Payday Log</title>
+<title>Page not found — IHS Payday Log</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
-:root{--bone:#f3eee4;--bone2:#ebe4d6;--ink:#111;--muted:#5a574e;--navy:#10141c;--mint:#7fe0b8}*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background-color:var(--bone);background-image:linear-gradient(rgba(16,20,28,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(16,20,28,.045) 1px,transparent 1px);background-size:24px 24px}nav{position:sticky;top:0;z-index:20;background:var(--navy);color:var(--bone);padding:10px 16px}.navin{max-width:960px;margin:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}.brand{margin-right:auto}.brand b{color:var(--mint);letter-spacing:.13em}.brand span{margin-left:9px}nav a{color:var(--bone);padding:10px 12px;text-decoration:none;border-radius:999px;min-height:44px}nav a.active{background:var(--mint);color:var(--navy)}main,footer{max-width:960px;margin:auto;padding:20px 16px}h1,h2,h3{font-family:Georgia,"Times New Roman",Times,serif}.card{background:var(--bone2);border-radius:12px;padding:18px;margin:0 0 16px}.notice{border-left:5px solid var(--navy)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}label{display:block;font-weight:700;margin-bottom:5px}input,select{width:100%;min-height:44px;border:1px solid var(--ink);border-radius:8px;padding:9px;background:var(--bone);color:var(--ink);font:inherit}button,.button{min-height:44px;border-radius:999px;padding:10px 17px;border:1px solid var(--ink);background:var(--navy);color:var(--mint);font-weight:700;cursor:pointer}.secondary{background:var(--bone2);color:var(--ink)}.danger{background:var(--ink);color:var(--bone)}button:disabled{opacity:.45;cursor:not-allowed}:focus-visible{outline:2px solid var(--navy);outline-offset:2px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.item{display:grid;grid-template-columns:1.2fr 1.2fr .8fr 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(17,17,17,.25)}.muted,small{color:var(--muted)}.error{color:#111;font-weight:700;border:2px solid #111;padding:10px;border-radius:8px}.success{font-weight:700}.badge{display:inline-block;background:var(--navy);color:var(--mint);border-radius:999px;padding:3px 8px;font-size:.78rem}.total{font-size:1.2rem;font-weight:800}.modal{position:fixed;inset:0;z-index:40;background:rgba(16,20,28,.74);display:grid;place-items:center;padding:16px}.modal>div{max-width:600px;width:100%;background:var(--bone);border-radius:12px;padding:20px}.hide{display:none!important}footer{font-size:.9rem;border-top:1px solid var(--ink);margin-top:24px}.sticky-actions{position:sticky;bottom:0;background:rgba(243,238,228,.96);padding:12px 0}.rate{grid-template-columns:1.4fr 1fr auto auto}.history{opacity:.82}@media(max-width:700px){.grid{grid-template-columns:1fr}.item,.rate{grid-template-columns:1fr}.navin{gap:4px}.brand{width:100%}main{padding-bottom:90px}}
+:root {
+  --bone: #f3eee4;
+  --bone-2: #ebe4d6;
+  --ink: #111111;
+  --muted: #5a574e;
+  --navy: #10141c;
+  --mint: #7fe0b8;
+  --max: 960px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bone);
+  background-image:
+    linear-gradient(rgba(16, 20, 28, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 20, 28, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  line-height: 1.45;
+}
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--navy);
+  color: var(--bone);
+  padding: 12px 16px;
+}
+.nav-in {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px 12px;
+  flex-wrap: wrap;
+}
+.brand {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--bone);
+  text-decoration: none;
+}
+.mark {
+  display: inline-grid;
+  place-items: center;
+  min-width: 46px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: var(--mint);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  border: 1px solid rgba(127, 224, 184, 0.45);
+}
+.brand-name { font-weight: 600; }
+nav a {
+  color: var(--bone);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 999px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+main, footer { max-width: var(--max); margin: 0 auto; padding: 22px 16px; }
+h1 { font-family: Georgia, "Times New Roman", Times, serif; font-weight: 400; font-size: 2rem; margin: 0 0 8px; }
+.lede { color: var(--muted); margin: 0 0 18px; max-width: 42em; }
+.card {
+  background: var(--bone-2);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 0 0 16px;
+  border-left: 5px solid var(--navy);
+}
+.button {
+  min-height: 44px;
+  border-radius: 999px;
+  padding: 10px 17px;
+  border: 1px solid var(--ink);
+  background: var(--navy);
+  color: var(--mint);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+nav a:focus-visible { outline-color: var(--mint); }
+footer {
+  font-size: 0.9rem;
+  border-top: 1px solid var(--ink);
+  margin-top: 24px;
+}
 </style>
 </head>
 <body>
-<nav><div class="navin"><div class="brand"><b>IHS</b><span>Payday Log</span></div><a href="#/log">Log</a><a href="#/payroll">Payroll</a><a href="#/rates">Rates</a><a href="#/settings">Settings</a></div></nav>
-<main id="app"></main>
-<footer><p><strong>Public website shell. Do not enter patient names, initials, DOB, identifying chart numbers, or other patient identifiers.</strong></p><p><strong>Use only the practice's non-patient Case ID.</strong></p><p><strong>This app is not HIPAA certified and does not claim HIPAA compliance.</strong></p><p>Data stays in this browser on this device and does not sync to another device.</p></footer>
-<div id="modal" class="modal hide" role="dialog" aria-modal="true"><div id="modalBody"></div></div>
-<script>
-(()=>{'use strict';
-const K={settings:'ihs-payday-v1-settings',rates:'ihs-payday-v1-rates',items:'ihs-payday-v1-items'}, app=document.querySelector('#app'), modal=document.querySelector('#modal'), modalBody=document.querySelector('#modalBody');
-let state={settings:null,rates:[],items:[],bad:false}, targetPayday=null, message='';
-const weekdays=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function localDate(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function localTime(d=new Date()){return `${localDate(d)}T${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`}
-function parseDate(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
-function validDate(s,max){if(!/^\d{4}-\d{2}-\d{2}$/.test(s))return false;const d=parseDate(s),[y,m,x]=s.split('-').map(Number);return d.getFullYear()===y&&d.getMonth()===m-1&&d.getDate()===x&&(!max||s<=max)}
-function assign(s,w){let d=parseDate(s);do d.setDate(d.getDate()+1);while(d.getDay()!==w);return localDate(d)}
-function shift(s,n){const d=parseDate(s);d.setDate(d.getDate()+n);return localDate(d)}
-function pretty(s){return parseDate(s).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
-function money(c){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(c/100)}
-function validCase(v){v=v.trim();return v.length>=1&&v.length<=80&&v!=='.'&&v!=='..'&&!/[\\/<>:"|?*\x00-\x1f\x7f]/.test(v)&&!/[. ]$/.test(v)&&!/^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$/i.test(v)}
-function save(key,val){try{localStorage.setItem(key,JSON.stringify(val));return true}catch(e){return false}}
-function load(){state.bad=false;try{state.settings=localStorage.getItem(K.settings)?JSON.parse(localStorage.getItem(K.settings)):{paydayWeekday:5,payrollEmail:'',ratesReviewed:false};state.rates=localStorage.getItem(K.rates)?JSON.parse(localStorage.getItem(K.rates)):[{id:'sample-nightguard',applianceType:'nightguard',jackAmountCents:8400,active:true,isSample:true,createdAt:localTime()}];state.items=localStorage.getItem(K.items)?JSON.parse(localStorage.getItem(K.items)):[];if(!localStorage.getItem(K.settings)&&!save(K.settings,state.settings))throw Error();if(!localStorage.getItem(K.rates)&&!save(K.rates,state.rates))throw Error()}catch(e){state.bad=true}}
-function notify(s){message=s;render()}
-function dialog(html){modalBody.innerHTML=html;modal.classList.remove('hide')}
-function closeDialog(){modal.classList.add('hide');modalBody.innerHTML=''}
-function shell(title,body){app.innerHTML=`<h1>${title}</h1>${message?`<p class="card success">${esc(message)}</p>`:''}${body}`;message=''}
-function route(){let r=location.hash;if(!['#/log','#/payroll','#/rates','#/settings'].includes(r)){r='#/log';location.hash=r}document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===r));render()}
-function render(){if(state.bad){shell('Payday data unavailable',`<div class="card error">Local payday data on this browser is unreadable.</div><button id="wipe" class="danger">Delete all local payday data</button>`);document.querySelector('#wipe').onclick=wipe;return}const r=location.hash||'#/log';({ '#/log':renderLog,'#/payroll':renderPayroll,'#/rates':renderRates,'#/settings':renderSettings}[r]||renderLog)()}
-function privacy(){return `<div class="card notice"><p>Pay log stays in this browser on this device. It is not uploaded or synced.</p><p>IHS does not invoice the practice. This is Jack's W-2 piece-rate log for payroll.</p><p>Finished means the treating dentist accepted the appliance. It is assigned to the next regular payday after that date.</p><p>Data stays in this browser on this device and does not sync to another device.</p></div>`}
-function includedTime(s){return new Date(s).toLocaleString('en-US')}
-function itemRow(i,history=false,payrollOpen=false){return `<div class="item ${history?'history':''}"><strong>${esc(i.caseId)}</strong><span>${esc(i.applianceType)}</span><span>${money(i.amountCents)}</span><span>${esc(i.acceptDate)}</span><span class="row">${history?`<span class="badge">Included ${esc(includedTime(i.includedInPayrollAt))}</span><button data-reopen="${i.id}" class="secondary">Reopen for correction</button>`:payrollOpen?'':`<button data-edit="${i.id}" class="secondary">Edit</button><button data-delete="${i.id}" class="danger">Delete</button>`}</span></div>`}
-function bindItems(){document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>removeItem(b.dataset.delete));document.querySelectorAll('[data-reopen]').forEach(b=>b.onclick=()=>reopen(b.dataset.reopen));document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>edit(b.dataset.edit))}
-function renderLog(){const active=state.rates.filter(r=>r.active&&r.applianceType&&r.jackAmountCents>0),today=localDate(),list=state.items.filter(i=>i.acceptDate===today),def=assign(today,state.settings.paydayWeekday);shell('Log finished work',`${privacy()}${!state.settings.ratesReviewed?'<div class="card notice">Review SAMPLE rates and edit them to match the practice before logging finished work.</div>':''}${!active.length?'<div class="card notice">Add at least one appliance and Jack amount before logging finished work.</div>':''}<div class="card grid"><div><label for="case">Case ID (practice work-order number)</label><input id="case" maxlength="80" autocomplete="off"><small>Do not enter patient names, initials, DOB, or chart numbers.</small><div id="caseErr"></div></div><div><label for="appliance">Appliance type</label><select id="appliance"><option value="">Select a rate</option>${active.map(r=>`<option value="${esc(r.id)}">${r.isSample?'SAMPLE — ':''}${esc(r.applianceType)} — ${money(r.jackAmountCents)}</option>`).join('')}</select><p>Amount preview: <strong id="preview">—</strong></p></div><div class="full sticky-actions"><div class="row"><button id="finished" disabled>Finished</button><button id="paylink" class="secondary">Payroll list for ${pretty(def)}</button></div><small id="finishedWhy"></small></div></div><section class="card"><h2>Today's finished list</h2>${list.length?list.map(i=>itemRow(i,!!i.includedInPayrollAt)).join(''):'<p>No cases finished on this device today.</p>'}</section>`);const c=document.querySelector('#case'),s=document.querySelector('#appliance'),btn=document.querySelector('#finished'),why=document.querySelector('#finishedWhy');function check(){const r=active.find(x=>x.id===s.value);document.querySelector('#preview').textContent=r?money(r.jackAmountCents):'—';btn.disabled=!(validCase(c.value)&&r&&state.settings.ratesReviewed&&active.length);why.textContent=!state.settings.ratesReviewed?'Rates must be reviewed before logging finished work.':!active.length?'Add at least one appliance and Jack amount before logging finished work.':!validCase(c.value)?'Enter a valid Case ID before logging finished work.':!r?'Select an appliance before logging finished work.':'';document.querySelector('#caseErr').textContent=c.value&&!validCase(c.value)?'Case ID must be the practice work-order number only — one folder-safe name. Do not use patient names, initials, DOB, or chart numbers.':''}c.oninput=s.onchange=check;c.onblur=()=>{c.value=c.value.trim();check()};btn.onclick=finished;document.querySelector('#paylink').onclick=()=>{targetPayday=def;location.hash='#/payroll'};check();bindItems()}
-function finished(){const c=document.querySelector('#case'),s=document.querySelector('#appliance'),caseId=c.value.trim(),today=localDate(),rate=state.rates.find(r=>r.id===s.value&&r.active);if(!validCase(caseId)||!rate||!state.settings.ratesReviewed)return;if(state.items.some(i=>i.caseId===caseId&&i.acceptDate===today)&&!confirm("This Case ID is already on today's list. Log another item anyway?"))return;const now=localTime(),item={id:crypto.randomUUID(),caseId,applianceType:rate.applianceType,amountCents:rate.jackAmountCents,acceptDate:today,assignedPayday:assign(today,state.settings.paydayWeekday),includedInPayrollAt:null,includedForPayday:null,createdAt:now,updatedAt:now},next=[...state.items,item];if(!save(K.items,next)){notify('Could not save on this device. Finished was not recorded.');return}state.items=next;c.value='';notify(`Logged ${caseId} · assigned payday ${pretty(item.assignedPayday)}.`)}
-function openFor(t){return state.items.filter(i=>!i.includedInPayrollAt&&i.assignedPayday===t).sort((a,b)=>a.acceptDate.localeCompare(b.acceptDate)||a.caseId.localeCompare(b.caseId)||a.id.localeCompare(b.id))}
-function renderPayroll(){const def=assign(localDate(),state.settings.paydayWeekday);if(!targetPayday||parseDate(targetPayday).getDay()!==state.settings.paydayWeekday)targetPayday=def;const open=openFor(targetPayday),hist=state.items.filter(i=>i.includedForPayday===targetPayday),early=state.items.filter(i=>!i.includedInPayrollAt&&i.assignedPayday<def).sort((a,b)=>a.assignedPayday.localeCompare(b.assignedPayday));shell(`Payroll list for ${pretty(targetPayday)}`,`<div class="card notice"><p>Payroll list contains only Case ID, appliance, amount, and acceptance date.</p><p>Email draft does not send until you send it in your mail app.</p><p>Copying, downloading, or opening a draft does not mark items included. Confirm only after the list is submitted to payroll.</p></div>${early.length?`<div class="card"><strong>${early.length} unincluded item(s) assigned to an earlier payday.</strong> <button id="earliest" class="secondary">Go to earliest unincluded payday</button></div>`:''}<div class="row card"><button id="prev" class="secondary">Previous payday</button><button id="next" class="secondary">Next payday</button></div><section class="card"><h2>Open items</h2>${open.length?open.map(i=>itemRow(i,false,true)).join(''):'<p>No unincluded items are assigned to this payday.</p>'}<p class="total">Total owed: ${money(open.reduce((n,i)=>n+i.amountCents,0))}</p><div class="row"><button id="copy" ${open.length?'':'disabled'}>Copy list</button><button id="csv" ${open.length?'':'disabled'}>Download CSV</button><button id="email" ${open.length?'':'disabled'}>Open email draft</button><button id="mark" ${open.length?'':'disabled'}>Mark included in payroll</button></div></section><section class="card"><h2>Included history</h2>${hist.length?hist.map(i=>itemRow(i,true)).join(''):'<p>No items have been marked included for this payday.</p>'}</section>`);document.querySelector('#prev').onclick=()=>{targetPayday=shift(targetPayday,-7);render()};document.querySelector('#next').onclick=()=>{targetPayday=shift(targetPayday,7);render()};if(early.length)document.querySelector('#earliest').onclick=()=>{targetPayday=early[0].assignedPayday;render()};document.querySelector('#copy').onclick=()=>doCopy(open);document.querySelector('#csv').onclick=()=>doCsv(open);document.querySelector('#email').onclick=()=>doEmail(open);document.querySelector('#mark').onclick=()=>confirmMark(open.map(i=>i.id));bindItems()}
-function listText(a){return `IHS payday log — ${pretty(targetPayday)}\nCase ID · Appliance · Amount · Accept date\n\n${a.map(i=>`${i.caseId} · ${i.applianceType} · ${money(i.amountCents)} · ${i.acceptDate}`).join('\n')}\n\nTotal owed: ${money(a.reduce((n,i)=>n+i.amountCents,0))}\n\nIHS does not invoice the practice. This is Jack's W-2 piece-rate log.`}
-function exported(ids){dialog(`<h2>Mark these items included in payroll for ${pretty(targetPayday)}?</h2><p>Copying, downloading, or opening a draft does not mark items included. Confirm only after the list is submitted to payroll.</p><div class="row"><button id="mYes">Mark included</button><button id="mNo" class="secondary">Not yet</button></div>`);document.querySelector('#mYes').onclick=()=>{closeDialog();mark(ids)};document.querySelector('#mNo').onclick=closeDialog}
-async function doCopy(a){try{const ids=a.map(i=>i.id);await navigator.clipboard.writeText(listText(a));const b=document.querySelector('#copy');b.textContent='Copied';setTimeout(()=>{if(b)b.textContent='Copy list'},2000);exported(ids)}catch(e){notify('Could not copy the list.')} }
-function csvCell(v){return `"${String(v).replace(/"/g,'""')}"`}function doCsv(a){const ids=a.map(i=>i.id),csv='\ufeffCase ID,Appliance,Amount,Accept date\r\n'+a.map(i=>[i.caseId,i.applianceType,(i.amountCents/100).toFixed(2),i.acceptDate].map(csvCell).join(',')).join('\r\n'),u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),x=document.createElement('a');x.href=u;x.download=`ihs-payday-${targetPayday}.csv`;x.click();setTimeout(()=>URL.revokeObjectURL(u),0);exported(ids)}
-function doEmail(a){const ids=a.map(i=>i.id),to=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.settings.payrollEmail)?state.settings.payrollEmail:'',u=`mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(`Payday log for ${weekdays[parseDate(targetPayday).getDay()]}, ${targetPayday}`)}&body=${encodeURIComponent(listText(a))}`;if(u.length>1800){notify('Email draft cannot be opened here. Copy the list or download CSV.');return}try{location.href=u;exported(ids)}catch(e){notify('Email draft cannot be opened here. Copy the list or download CSV.')}}
-function confirmMark(ids){dialog(`<h2>Mark these items included in payroll for ${pretty(targetPayday)}?</h2><p>Copying, downloading, or opening a draft does not mark items included. Confirm only after the list is submitted to payroll.</p><div class="row"><button id="mYes">Mark included</button><button id="mNo" class="secondary">Not yet</button></div>`);document.querySelector('#mYes').onclick=()=>{closeDialog();mark(ids)};document.querySelector('#mNo').onclick=closeDialog}
-function mark(ids){let stored;try{stored=JSON.parse(localStorage.getItem(K.items)||'[]');const now=localTime(),set=new Set(ids);stored=stored.map(i=>set.has(i.id)&&i.assignedPayday===targetPayday&&!i.includedInPayrollAt?{...i,includedInPayrollAt:now,includedForPayday:targetPayday,updatedAt:now}:i);localStorage.setItem(K.items,JSON.stringify(stored));state.items=stored;notify('Items marked included in payroll.')}catch(e){load();notify('Could not save on this device. Nothing was marked included.')}}
-function renderRates(){const usable=state.rates.some(r=>r.active&&r.applianceType&&r.jackAmountCents>0);shell('Rates',`<div class="card notice"><strong>SAMPLE: nightguard lab baseline $120; Jack amount $84. Edit before use.</strong><p>Review SAMPLE rates and edit them to match the practice before logging finished work.</p></div>${!usable?'<div class="card notice">Add at least one appliance and Jack amount before logging finished work.</div>':''}<div class="card"><div id="rates">${state.rates.map(r=>`<div class="item rate"><input aria-label="Appliance type" maxlength="40" value="${esc(r.applianceType)}" data-type="${r.id}"><input aria-label="Jack amount" type="number" min="0" max="99999.99" step=".01" value="${(r.jackAmountCents/100).toFixed(2)}" data-amt="${r.id}"><label><input style="width:auto" type="checkbox" data-active="${r.id}" ${r.active?'checked':''}> Active</label><span>${r.isSample?'<span class="badge">SAMPLE</span> ':''}<button class="danger" data-rate-del="${r.id}">Delete</button></span></div>`).join('')}</div><div class="row"><button id="saveRates">Save rates</button><button id="addRate" class="secondary">Add rate</button>${state.settings.ratesReviewed?'<strong>Rates reviewed for this practice</strong>':'<button id="review" class="secondary">Mark rates reviewed</button>'}</div></div>`);document.querySelector('#addRate').onclick=()=>{state.rates.push({id:crypto.randomUUID(),applianceType:'',jackAmountCents:0,active:true,isSample:false,createdAt:localTime()});render()};document.querySelector('#saveRates').onclick=saveRates;const review=document.querySelector('#review');if(review)review.onclick=()=>{if(!saveRates(true))return;const next={...state.settings,ratesReviewed:true};if(save(K.settings,next)){state.settings=next;notify('Rates marked reviewed.')}else notify('Could not save on this device.')};document.querySelectorAll('[data-rate-del]').forEach(b=>b.onclick=()=>{if(confirm('Delete this rate?')){const n=state.rates.filter(r=>r.id!==b.dataset.rateDel);if(save(K.rates,n)){state.rates=n;render()}else notify('Could not save on this device.')}})}
-function saveRates(quiet=false){let ok=true;const n=state.rates.map(r=>{const type=document.querySelector(`[data-type="${r.id}"]`).value.trim(),v=Number(document.querySelector(`[data-amt="${r.id}"]`).value);if(!type||type.length>40||!Number.isFinite(v)||v<0||v>99999.99)ok=false;return {...r,applianceType:type,jackAmountCents:Math.round(v*100),active:document.querySelector(`[data-active="${r.id}"]`).checked}});if(!ok){notify('Enter a type and an amount from $0.00 to $99,999.99.');return false}if(save(K.rates,n)){state.rates=n;if(!quiet)notify('Rates saved.');return true}notify('Could not save on this device.');return false}
-function renderSettings(){shell('Settings',`<div class="card notice"><p>Clearing browser data or using another browser/device can lose this log.</p><p>Data stays in this browser on this device and does not sync to another device.</p></div><div class="card grid"><div><label for="weekday">Regular payday weekday</label><select id="weekday">${weekdays.map((w,i)=>`<option value="${i}" ${i===state.settings.paydayWeekday?'selected':''}>${w}</option>`).join('')}</select></div><div><label for="email">Payroll email (optional)</label><input id="emailSet" type="email" value="${esc(state.settings.payrollEmail||'')}"></div><div class="full row"><button id="saveSettings">Save settings</button><button id="wipe" class="danger">Delete all local payday data</button></div></div>`);document.querySelector('#saveSettings').onclick=()=>{const old=state.settings.paydayWeekday,next={...state.settings,paydayWeekday:Number(document.querySelector('#weekday').value),payrollEmail:document.querySelector('#emailSet').value.trim()};if(save(K.settings,next)){state.settings=next;targetPayday=null;notify(old!==next.paydayWeekday?'New payday weekday applies to work finished from now on. Existing items keep their assigned payday.':'Settings saved.')}else notify('Could not save on this device.')};document.querySelector('#wipe').onclick=wipe}
-function wipe(){if(!confirm('Delete all payday data on this browser? Rates, settings, and log items will be removed. This cannot be undone.'))return;try{Object.values(K).forEach(k=>localStorage.removeItem(k));load();targetPayday=null;notify('All local payday data deleted.')}catch(e){notify('Could not save on this device.')}}
-function removeItem(id){const i=state.items.find(x=>x.id===id);if(!i||!confirm('Delete this payday item? This cannot be undone.')||(i.includedInPayrollAt&&!confirm('This item was marked included in payroll. Delete anyway?')))return;const n=state.items.filter(x=>x.id!==id);if(save(K.items,n)){state.items=n;render()}else notify('Could not save on this device.')}
-function reopen(id){if(!confirm('This item may already be in payroll. Reopen only to correct a mistake.'))return;const n=state.items.map(i=>i.id===id?{...i,includedInPayrollAt:null,includedForPayday:null,updatedAt:localTime()}:i);if(save(K.items,n)){state.items=n;notify('Item reopened. Payroll may already have it.')}else notify('Could not save on this device.')}
-function edit(id){const i=state.items.find(x=>x.id===id);if(!i||i.includedInPayrollAt)return;dialog(`<h2>Edit payday item</h2><div class="grid"><div><label>Case ID</label><input id="eCase" value="${esc(i.caseId)}"></div><div><label>Appliance type</label><select id="eType">${state.rates.filter(r=>r.active).map(r=>`<option value="${r.id}" ${r.applianceType===i.applianceType?'selected':''}>${esc(r.applianceType)}</option>`).join('')}</select></div><div><label>Accept date</label><input id="eDate" type="date" max="${localDate()}" value="${i.acceptDate}"></div><div><label>Amount</label><input id="eAmt" type="number" min="0" max="99999.99" step=".01" value="${(i.amountCents/100).toFixed(2)}"></div><label class="full"><input id="eReassign" style="width:auto" type="checkbox"> Reassign to next ${weekdays[state.settings.paydayWeekday]} after accept date</label></div>${parseDate(i.assignedPayday).getDay()!==state.settings.paydayWeekday?`<p>Assigned payday is still ${i.assignedPayday} because the weekday setting changed after this was finished.</p>`:''}<div class="row"><button id="eSave">Save corrections</button><button id="eCancel" class="secondary">Cancel</button></div>`);const type=document.querySelector('#eType'),amt=document.querySelector('#eAmt');type.onchange=()=>{const r=state.rates.find(x=>x.id===type.value);if(r)amt.value=(r.jackAmountCents/100).toFixed(2)};document.querySelector('#eCancel').onclick=closeDialog;document.querySelector('#eSave').onclick=()=>{const caseId=document.querySelector('#eCase').value.trim(),date=document.querySelector('#eDate').value,a=Number(amt.value),r=state.rates.find(x=>x.id===type.value);if(!validCase(caseId)){alert('Case ID must be the practice work-order number only — one folder-safe name. Do not use patient names, initials, DOB, or chart numbers.');return}if(!r||!validDate(date,localDate())||!Number.isFinite(a)||a<0||a>99999.99)return;if(!confirm('Save corrections?'))return;const changed=date!==i.acceptDate||document.querySelector('#eReassign').checked,n=state.items.map(x=>x.id===id?{...x,caseId,applianceType:r.applianceType,amountCents:Math.round(a*100),acceptDate:date,assignedPayday:changed?assign(date,state.settings.paydayWeekday):x.assignedPayday,updatedAt:localTime()}:x);if(save(K.items,n)){state.items=n;closeDialog();notify('Corrections saved.')}else{closeDialog();notify('Could not save on this device.')}}}
-window.addEventListener('hashchange',route);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){load();render()}});load();route();
-})();
-</script>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="/payday-log/"><span class="mark">IHS</span><span class="brand-name">Payday Log</span></a>
+    <a href="/payday-log/#/log">Log</a>
+    <a href="/payday-log/#/payroll">Payroll</a>
+    <a href="/payday-log/#/rates">Rates</a>
+    <a href="/payday-log/#/settings">Settings</a>
+  </div>
+</nav>
+<main>
+  <h1>Page not found</h1>
+  <p class="lede">This URL is not part of IHS Payday Log.</p>
+  <div class="card">
+    <p>The payday log lives at the same path as always. Open it to log finished work, review rates, or copy a payroll list. Data stays in this browser.</p>
+    <p><a class="button" href="/payday-log/">Go to IHS Payday Log</a></p>
+  </div>
+</main>
+<footer>
+  <p><strong>Public website shell. Do not enter patient names, initials, DOB, identifying chart numbers, or other patient identifiers.</strong></p>
+  <p><strong>This app is not HIPAA certified and does not claim HIPAA compliance.</strong></p>
+</footer>
 </body>
 </html>
