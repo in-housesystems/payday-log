@@ -833,7 +833,9 @@ footer {
   }
 
   function csvCell(v) {
-    return '"' + String(v).replace(/"/g, '""') + '"';
+    let value = String(v);
+    if (/^[=+\-@]/.test(value)) value = "'" + value;
+    return '"' + value.replace(/"/g, '""') + '"';
   }
 
   function downloadCsv(rows) {
