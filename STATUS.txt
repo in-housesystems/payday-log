@@ -13,4 +13,4 @@ SAMPLE nightguard $84. Rates must be reviewed before logging.
 
 Not a patient chart. Not HIPAA certified. No PHI in git.
 
-Last ship: grok v1 static shell (replace Codex-era UI).
+Last ship: grok Log bench card and Case ID reminder (2026-09-05). Saved, not deployed.

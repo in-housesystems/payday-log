@@ -603,11 +603,27 @@ footer {
     });
   }
 
+  function priorForCase(caseId) {
+    const id = String(caseId || '').trim();
+    if (!id) return [];
+    return state.items
+      .filter(i => i.caseId === id)
+      .slice()
+      .sort((a, b) =>
+        b.acceptDate.localeCompare(a.acceptDate) ||
+        (b.createdAt || '').localeCompare(a.createdAt || '') ||
+        b.id.localeCompare(a.id)
+      );
+  }
+
   function renderLog() {
     const active = usableRates();
     const today = localDate();
     const list = state.items.filter(i => i.acceptDate === today).slice().reverse();
     const upcoming = nextPaydayAfter(today, state.settings.paydayWeekday);
+    const waiting = openFor(upcoming);
+    const waitingTotal = waiting.reduce((sum, i) => sum + i.amountCents, 0);
+    const waitingLabel = waiting.length === 1 ? 'unincluded item' : 'unincluded items';
     const reviewed = state.settings.ratesReviewed;
     shell(
       'Log finished work',
@@ -623,7 +639,9 @@ footer {
           '<label for="case">Case ID (practice work-order number)</label>' +
           '<input id="case" maxlength="80" autocomplete="off">' +
           '<small>Do not enter patient names, initials, DOB, or chart numbers.</small>' +
+          '<p class="muted">Use the same practice Case ID as Practice Files. The apps do not share data.</p>' +
           '<div id="caseErr" class="muted"></div>' +
+          '<div id="caseDup" class="muted" aria-live="polite"></div>' +
         '</div>' +
         '<div>' +
           '<label for="appliance">Appliance type</label>' +
@@ -647,6 +665,15 @@ footer {
           '<small id="finishedWhy"></small>' +
         '</div>' +
       '</div>' +
+      '<section class="card notice">' +
+        '<h2>Upcoming payday</h2>' +
+        '<p><strong>' + waiting.length + '</strong> ' + waitingLabel +
+          ' assigned to ' + prettyDate(upcoming) + '.</p>' +
+        '<p class="total">' + money(waitingTotal) + '</p>' +
+        '<div class="row">' +
+          '<button type="button" id="benchPay" class="secondary">Payroll list for ' + prettyDate(upcoming) + '</button>' +
+        '</div>' +
+      '</section>' +
       '<section class="card">' +
         '<h2>Today\'s finished list</h2>' +
         (list.length
@@ -661,6 +688,12 @@ footer {
     const why = document.querySelector('#finishedWhy');
     const preview = document.querySelector('#preview');
     const caseErr = document.querySelector('#caseErr');
+    const caseDup = document.querySelector('#caseDup');
+
+    function goUpcomingPayroll() {
+      targetPayday = upcoming;
+      location.hash = '#/payroll';
+    }
 
     function check() {
       const rate = active.find(r => r.id === selectEl.value);
@@ -679,15 +712,19 @@ footer {
       caseErr.textContent = caseEl.value && !validCase(caseEl.value)
         ? 'Case ID must be the practice work-order number only — one folder-safe name. Do not use patient names, initials, DOB, or chart numbers.'
         : '';
+      const prior = validCase(caseEl.value) ? priorForCase(caseEl.value) : [];
+      caseDup.innerHTML = prior.length
+        ? prior.map(i =>
+            'Already logged ' + esc(i.acceptDate) + ' · ' + esc(i.applianceType) + ' · ' + money(i.amountCents)
+          ).join('<br>')
+        : '';
     }
 
     caseEl.oninput = selectEl.onchange = check;
     caseEl.onblur = () => { caseEl.value = caseEl.value.trim(); check(); };
     btn.onclick = finishWork;
-    document.querySelector('#paylink').onclick = () => {
-      targetPayday = upcoming;
-      location.hash = '#/payroll';
-    };
+    document.querySelector('#paylink').onclick = goUpcomingPayroll;
+    document.querySelector('#benchPay').onclick = goUpcomingPayroll;
     check();
     bindItemButtons();
   }

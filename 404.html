@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10141c">
-<meta name="description" content="Page not found — IHS Payday Log.">
+<meta name="description" content="IHS Payday Log — Jack's W-2 piece-rate log. Stays in this browser. Not a patient chart.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'self'; form-action 'none'; connect-src 'none'; worker-src 'none'; manifest-src 'none'; font-src 'none'; object-src 'none'; frame-src 'none'">
 <base href="/payday-log/">
-<title>Page not found — IHS Payday Log</title>
+<title>IHS Payday Log</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
 :root {
@@ -17,6 +17,7 @@
   --muted: #5a574e;
   --navy: #10141c;
   --mint: #7fe0b8;
+  --line: rgba(17, 17, 17, 0.18);
   --max: 960px;
 }
 * { box-sizing: border-box; }
@@ -53,8 +54,6 @@ nav {
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  color: var(--bone);
-  text-decoration: none;
 }
 .mark {
   display: inline-grid;
@@ -79,17 +78,49 @@ nav a {
   display: inline-flex;
   align-items: center;
 }
+nav a.active {
+  background: var(--mint);
+  color: var(--navy);
+  font-weight: 700;
+}
 main, footer { max-width: var(--max); margin: 0 auto; padding: 22px 16px; }
-h1 { font-family: Georgia, "Times New Roman", Times, serif; font-weight: 400; font-size: 2rem; margin: 0 0 8px; }
+h1, h2, h3 { font-family: Georgia, "Times New Roman", Times, serif; font-weight: 400; }
+h1 { font-size: 2rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 1.25rem; margin: 0 0 12px; }
 .lede { color: var(--muted); margin: 0 0 18px; max-width: 42em; }
 .card {
   background: var(--bone-2);
   border-radius: 12px;
   padding: 18px;
   margin: 0 0 16px;
-  border-left: 5px solid var(--navy);
 }
-.button {
+.notice { border-left: 5px solid var(--navy); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.full { grid-column: 1 / -1; }
+label { display: block; font-weight: 700; margin-bottom: 5px; }
+input, select, textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  padding: 9px;
+  background: var(--bone);
+  color: var(--ink);
+  font: inherit;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  min-height: 44px;
+}
+.check input { width: auto; min-height: 22px; }
+button, .button {
   min-height: 44px;
   border-radius: 999px;
   padding: 10px 17px;
@@ -98,40 +129,1174 @@ h1 { font-family: Georgia, "Times New Roman", Times, serif; font-weight: 400; fo
   color: var(--mint);
   font: inherit;
   font-weight: 700;
+  cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
+.secondary { background: var(--bone-2); color: var(--ink); }
+.danger { background: var(--ink); color: var(--bone); }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
 :focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 nav a:focus-visible { outline-color: var(--mint); }
+.row { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.item {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 0.8fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.rate { grid-template-columns: 1.4fr 1fr auto auto; }
+.muted, small { color: var(--muted); }
+.error {
+  color: var(--ink);
+  font-weight: 700;
+  border: 2px solid var(--ink);
+  padding: 10px;
+  border-radius: 8px;
+}
+.flash { font-weight: 700; }
+.badge {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--mint);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.total { font-size: 1.2rem; font-weight: 800; margin: 12px 0; }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(16, 20, 28, 0.74);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.modal-panel {
+  max-width: 600px;
+  width: 100%;
+  background: var(--bone);
+  border-radius: 12px;
+  padding: 20px;
+}
+.hide { display: none !important; }
 footer {
   font-size: 0.9rem;
   border-top: 1px solid var(--ink);
   margin-top: 24px;
+}
+.sticky-actions {
+  position: sticky;
+  bottom: 0;
+  background: rgba(243, 238, 228, 0.96);
+  padding: 12px 0;
+}
+.history { opacity: 0.82; }
+@media (max-width: 700px) {
+  .grid, .item, .rate { grid-template-columns: 1fr; }
+  .nav-in { gap: 4px; }
+  .brand { width: 100%; }
+  main { padding-bottom: 90px; }
 }
 </style>
 </head>
 <body>
 <nav>
   <div class="nav-in">
-    <a class="brand" href="/payday-log/"><span class="mark">IHS</span><span class="brand-name">Payday Log</span></a>
-    <a href="/payday-log/#/log">Log</a>
-    <a href="/payday-log/#/payroll">Payroll</a>
-    <a href="/payday-log/#/rates">Rates</a>
-    <a href="/payday-log/#/settings">Settings</a>
+    <div class="brand"><span class="mark">IHS</span><span class="brand-name">Payday Log</span></div>
+    <a href="#/log">Log</a>
+    <a href="#/payroll">Payroll</a>
+    <a href="#/rates">Rates</a>
+    <a href="#/settings">Settings</a>
   </div>
 </nav>
-<main>
-  <h1>Page not found</h1>
-  <p class="lede">This URL is not part of IHS Payday Log.</p>
-  <div class="card">
-    <p>The payday log lives at the same path as always. Open it to log finished work, review rates, or copy a payroll list. Data stays in this browser.</p>
-    <p><a class="button" href="/payday-log/">Go to IHS Payday Log</a></p>
-  </div>
-</main>
+<main id="app"></main>
 <footer>
   <p><strong>Public website shell. Do not enter patient names, initials, DOB, identifying chart numbers, or other patient identifiers.</strong></p>
+  <p><strong>Use only the practice's non-patient Case ID.</strong></p>
   <p><strong>This app is not HIPAA certified and does not claim HIPAA compliance.</strong></p>
+  <p>Data stays in this browser on this device and does not sync to another device.</p>
 </footer>
+<div id="modal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-panel" id="modalBody"></div>
+</div>
+<script>
+(() => {
+  'use strict';
+
+  const KEYS = {
+    settings: 'ihs-payday-v1-settings',
+    rates: 'ihs-payday-v1-rates',
+    items: 'ihs-payday-v1-items'
+  };
+  const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const ROUTES = ['#/log', '#/payroll', '#/rates', '#/settings'];
+  const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
+  const TIME_RE = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$/;
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const CENTS_MAX = 9999999;
+
+  const app = document.querySelector('#app');
+  const modal = document.querySelector('#modal');
+  const modalBody = document.querySelector('#modalBody');
+
+  const state = { settings: null, rates: [], items: [], unreadable: false };
+  let targetPayday = null;
+  let flash = '';
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function localDate(d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  function localTime(d) {
+    d = d || new Date();
+    return localDate(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+
+  function parseLocalDate(s) {
+    const m = DATE_RE.exec(String(s));
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3]);
+  }
+
+  function isLocalDate(s) {
+    const d = parseLocalDate(s);
+    if (!d) return false;
+    const m = DATE_RE.exec(String(s));
+    return d.getFullYear() === +m[1] && d.getMonth() === +m[2] - 1 && d.getDate() === +m[3];
+  }
+
+  function validDateOnOrBefore(s, max) {
+    return isLocalDate(s) && (!max || s <= max);
+  }
+
+  function nextPaydayAfter(dateStr, weekday) {
+    const d = parseLocalDate(dateStr);
+    do d.setDate(d.getDate() + 1);
+    while (d.getDay() !== weekday);
+    return localDate(d);
+  }
+
+  function addDays(dateStr, n) {
+    const d = parseLocalDate(dateStr);
+    d.setDate(d.getDate() + n);
+    return localDate(d);
+  }
+
+  function prettyDate(s) {
+    return parseLocalDate(s).toLocaleDateString('en-US', {
+      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+    });
+  }
+
+  function prettyTime(s) {
+    if (!s) return '';
+    const m = TIME_RE.exec(s);
+    if (m) {
+      const d = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
+      return d.toLocaleString('en-US');
+    }
+    return String(s);
+  }
+
+  function money(cents) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, ch => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[ch]));
+  }
+
+  function newId() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
+  function validCase(v) {
+    v = v.trim();
+    return v.length >= 1 && v.length <= 80 &&
+      v !== '.' && v !== '..' &&
+      !/[\\/<>:"|?*\x00-\x1f\x7f]/.test(v) &&
+      !/[. ]$/.test(v) &&
+      !/^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$/i.test(v);
+  }
+
+  function isPlainObject(v) {
+    return v !== null && typeof v === 'object' && !Array.isArray(v);
+  }
+
+  function isCents(n) {
+    return Number.isInteger(n) && n >= 0 && n <= CENTS_MAX;
+  }
+
+  function writeStore(key, val) {
+    try {
+      localStorage.setItem(key, JSON.stringify(val));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function defaultSettings() {
+    return { paydayWeekday: 5, payrollEmail: '', ratesReviewed: false };
+  }
+
+  function sampleRate() {
+    return {
+      id: 'sample-nightguard',
+      applianceType: 'nightguard',
+      jackAmountCents: 8400,
+      active: true,
+      isSample: true,
+      createdAt: localTime()
+    };
+  }
+
+  function coerceWeekday(v) {
+    if (v === undefined) return { value: 5, changed: true };
+    if (typeof v === 'string' && /^[0-6]$/.test(v)) return { value: Number(v), changed: true };
+    if (Number.isInteger(v) && v >= 0 && v <= 6) return { value: v, changed: false };
+    return null;
+  }
+
+  function migrateSettings(raw) {
+    if (!isPlainObject(raw)) return null;
+    const weekday = coerceWeekday(raw.paydayWeekday);
+    if (!weekday) return null;
+    let changed = weekday.changed;
+    let payrollEmail = raw.payrollEmail;
+    if (payrollEmail === undefined || payrollEmail === null) {
+      payrollEmail = '';
+      changed = true;
+    }
+    if (typeof payrollEmail !== 'string') return null;
+    let ratesReviewed = raw.ratesReviewed;
+    if (ratesReviewed === undefined) {
+      ratesReviewed = false;
+      changed = true;
+    }
+    if (typeof ratesReviewed !== 'boolean') return null;
+    return {
+      data: { ...raw, paydayWeekday: weekday.value, payrollEmail: payrollEmail, ratesReviewed: ratesReviewed },
+      changed: changed
+    };
+  }
+
+  function migrateRate(raw) {
+    if (!isPlainObject(raw)) return null;
+    if (typeof raw.id !== 'string' || !raw.id) return null;
+    if (typeof raw.applianceType !== 'string') return null;
+    if (!isCents(raw.jackAmountCents)) return null;
+    if (typeof raw.active !== 'boolean') return null;
+    if (typeof raw.isSample !== 'boolean') return null;
+    let changed = false;
+    let createdAt = raw.createdAt;
+    if (typeof createdAt !== 'string' || !createdAt) {
+      createdAt = localTime();
+      changed = true;
+    }
+    return { data: { ...raw, createdAt: createdAt }, changed: changed };
+  }
+
+  function migrateItem(raw) {
+    if (!isPlainObject(raw)) return null;
+    if (typeof raw.id !== 'string' || !raw.id) return null;
+    if (typeof raw.caseId !== 'string') return null;
+    if (typeof raw.applianceType !== 'string') return null;
+    if (!isCents(raw.amountCents)) return null;
+    if (!isLocalDate(raw.acceptDate)) return null;
+    if (!isLocalDate(raw.assignedPayday)) return null;
+    let changed = false;
+    let includedInPayrollAt = raw.includedInPayrollAt;
+    if (includedInPayrollAt === undefined || includedInPayrollAt === '') {
+      includedInPayrollAt = null;
+      changed = true;
+    }
+    if (includedInPayrollAt !== null && typeof includedInPayrollAt !== 'string') return null;
+    let includedForPayday = raw.includedForPayday;
+    if (includedForPayday === undefined || includedForPayday === '') {
+      includedForPayday = null;
+      changed = true;
+    }
+    if (includedForPayday !== null && !isLocalDate(includedForPayday)) return null;
+    let createdAt = raw.createdAt;
+    if (typeof createdAt !== 'string' || !createdAt) {
+      createdAt = localTime();
+      changed = true;
+    }
+    let updatedAt = raw.updatedAt;
+    if (typeof updatedAt !== 'string' || !updatedAt) {
+      updatedAt = createdAt;
+      changed = true;
+    }
+    return {
+      data: {
+        ...raw,
+        includedInPayrollAt: includedInPayrollAt,
+        includedForPayday: includedForPayday,
+        createdAt: createdAt,
+        updatedAt: updatedAt
+      },
+      changed: changed
+    };
+  }
+
+  function migrateList(raw, each) {
+    if (!Array.isArray(raw)) return null;
+    const data = [];
+    let changed = false;
+    for (let i = 0; i < raw.length; i++) {
+      const one = each(raw[i]);
+      if (!one) return null;
+      data.push(one.data);
+      if (one.changed) changed = true;
+    }
+    return { data: data, changed: changed };
+  }
+
+  function loadKey(raw, migrate, fallback) {
+    if (raw === null) {
+      if (fallback === undefined) return { data: null, write: false, missing: true };
+      return { data: fallback, write: true, missing: true };
+    }
+    let parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+    const migrated = migrate(parsed);
+    if (!migrated) return null;
+    return { data: migrated.data, write: migrated.changed, missing: false };
+  }
+
+  function load() {
+    state.unreadable = false;
+    try {
+      const settings = loadKey(
+        localStorage.getItem(KEYS.settings),
+        migrateSettings,
+        defaultSettings()
+      );
+      if (!settings) { state.unreadable = true; return; }
+      if (settings.write && !writeStore(KEYS.settings, settings.data)) {
+        state.unreadable = true;
+        return;
+      }
+
+      const rates = loadKey(
+        localStorage.getItem(KEYS.rates),
+        function (raw) { return migrateList(raw, migrateRate); },
+        [sampleRate()]
+      );
+      if (!rates) { state.unreadable = true; return; }
+      if (rates.write && !writeStore(KEYS.rates, rates.data)) {
+        state.unreadable = true;
+        return;
+      }
+
+      const items = loadKey(
+        localStorage.getItem(KEYS.items),
+        function (raw) { return migrateList(raw, migrateItem); }
+      );
+      if (!items) { state.unreadable = true; return; }
+      if (items.missing) {
+        state.settings = settings.data;
+        state.rates = rates.data;
+        state.items = [];
+        return;
+      }
+      if (items.write && !writeStore(KEYS.items, items.data)) {
+        state.unreadable = true;
+        return;
+      }
+
+      state.settings = settings.data;
+      state.rates = rates.data;
+      state.items = items.data;
+    } catch (e) {
+      state.unreadable = true;
+    }
+  }
+
+  function notify(msg) {
+    flash = msg;
+    render();
+  }
+
+  function openModal(html) {
+    modalBody.innerHTML = html;
+    modal.classList.remove('hide');
+    const focusable = modalBody.querySelector('button, input, select, textarea, a[href]');
+    if (focusable) focusable.focus();
+  }
+
+  function closeModal() {
+    modal.classList.add('hide');
+    modalBody.innerHTML = '';
+  }
+
+  function shell(title, body) {
+    const msg = flash;
+    flash = '';
+    app.innerHTML =
+      '<h1>' + title + '</h1>' +
+      '<p class="lede">Jack\'s W-2 piece-rate log. IHS does not invoice the practice.</p>' +
+      (msg ? '<p class="card flash" role="status">' + esc(msg) + '</p>' : '') +
+      body;
+  }
+
+  function privacy() {
+    return (
+      '<div class="card notice">' +
+        '<p>Pay log stays in this browser on this device. It is not uploaded or synced.</p>' +
+        '<p>IHS does not invoice the practice. This is Jack\'s W-2 piece-rate log for payroll.</p>' +
+        '<p>Finished means the treating dentist accepted the appliance. It is assigned to the next regular payday after that date.</p>' +
+      '</div>'
+    );
+  }
+
+  function usableRates() {
+    return state.rates.filter(r => r.active && r.applianceType && r.jackAmountCents > 0);
+  }
+
+  function itemRow(item, mode) {
+    const actions = mode === 'history'
+      ? '<span class="badge">Included ' + esc(prettyTime(item.includedInPayrollAt)) + '</span>' +
+        '<button type="button" class="secondary" data-reopen="' + esc(item.id) + '">Reopen for correction</button>'
+      : mode === 'payroll'
+        ? ''
+        : '<button type="button" class="secondary" data-edit="' + esc(item.id) + '">Edit</button>' +
+          '<button type="button" class="danger" data-delete="' + esc(item.id) + '">Delete</button>';
+    return (
+      '<div class="item' + (mode === 'history' ? ' history' : '') + '">' +
+        '<strong>' + esc(item.caseId) + '</strong>' +
+        '<span>' + esc(item.applianceType) + '</span>' +
+        '<span>' + money(item.amountCents) + '</span>' +
+        '<span>' + esc(item.acceptDate) + '</span>' +
+        '<span class="row">' + actions + '</span>' +
+      '</div>'
+    );
+  }
+
+  function bindItemButtons() {
+    app.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.onclick = () => removeItem(btn.getAttribute('data-delete'));
+    });
+    app.querySelectorAll('[data-reopen]').forEach(btn => {
+      btn.onclick = () => reopenItem(btn.getAttribute('data-reopen'));
+    });
+    app.querySelectorAll('[data-edit]').forEach(btn => {
+      btn.onclick = () => editItem(btn.getAttribute('data-edit'));
+    });
+  }
+
+  function priorForCase(caseId) {
+    const id = String(caseId || '').trim();
+    if (!id) return [];
+    return state.items
+      .filter(i => i.caseId === id)
+      .slice()
+      .sort((a, b) =>
+        b.acceptDate.localeCompare(a.acceptDate) ||
+        (b.createdAt || '').localeCompare(a.createdAt || '') ||
+        b.id.localeCompare(a.id)
+      );
+  }
+
+  function renderLog() {
+    const active = usableRates();
+    const today = localDate();
+    const list = state.items.filter(i => i.acceptDate === today).slice().reverse();
+    const upcoming = nextPaydayAfter(today, state.settings.paydayWeekday);
+    const waiting = openFor(upcoming);
+    const waitingTotal = waiting.reduce((sum, i) => sum + i.amountCents, 0);
+    const waitingLabel = waiting.length === 1 ? 'unincluded item' : 'unincluded items';
+    const reviewed = state.settings.ratesReviewed;
+    shell(
+      'Log finished work',
+      privacy() +
+      (!reviewed
+        ? '<div class="card notice">Review SAMPLE rates and edit them to match the practice before logging finished work.</div>'
+        : '') +
+      (!active.length
+        ? '<div class="card notice">Add at least one appliance and Jack amount before logging finished work.</div>'
+        : '') +
+      '<div class="card grid">' +
+        '<div>' +
+          '<label for="case">Case ID (practice work-order number)</label>' +
+          '<input id="case" maxlength="80" autocomplete="off">' +
+          '<small>Do not enter patient names, initials, DOB, or chart numbers.</small>' +
+          '<p class="muted">Use the same practice Case ID as Practice Files. The apps do not share data.</p>' +
+          '<div id="caseErr" class="muted"></div>' +
+          '<div id="caseDup" class="muted" aria-live="polite"></div>' +
+        '</div>' +
+        '<div>' +
+          '<label for="appliance">Appliance type</label>' +
+          '<select id="appliance">' +
+            '<option value="">Select a rate</option>' +
+            active.map(r =>
+              '<option value="' + esc(r.id) + '">' +
+              (r.isSample ? 'SAMPLE — ' : '') + esc(r.applianceType) + ' — ' + money(r.jackAmountCents) +
+              '</option>'
+            ).join('') +
+          '</select>' +
+          '<p>Amount preview: <strong id="preview">—</strong></p>' +
+          '<p class="muted">Assigned payday will be the next ' + esc(WEEKDAYS[state.settings.paydayWeekday]) +
+            ' after today: ' + prettyDate(upcoming) + '.</p>' +
+        '</div>' +
+        '<div class="full sticky-actions">' +
+          '<div class="row">' +
+            '<button type="button" id="finished" disabled>Finished</button>' +
+            '<button type="button" id="paylink" class="secondary">Payroll list for ' + prettyDate(upcoming) + '</button>' +
+          '</div>' +
+          '<small id="finishedWhy"></small>' +
+        '</div>' +
+      '</div>' +
+      '<section class="card notice">' +
+        '<h2>Upcoming payday</h2>' +
+        '<p><strong>' + waiting.length + '</strong> ' + waitingLabel +
+          ' assigned to ' + prettyDate(upcoming) + '.</p>' +
+        '<p class="total">' + money(waitingTotal) + '</p>' +
+        '<div class="row">' +
+          '<button type="button" id="benchPay" class="secondary">Payroll list for ' + prettyDate(upcoming) + '</button>' +
+        '</div>' +
+      '</section>' +
+      '<section class="card">' +
+        '<h2>Today\'s finished list</h2>' +
+        (list.length
+          ? list.map(i => itemRow(i, i.includedInPayrollAt ? 'history' : 'open')).join('')
+          : '<p>No cases finished on this device today.</p>') +
+      '</section>'
+    );
+
+    const caseEl = document.querySelector('#case');
+    const selectEl = document.querySelector('#appliance');
+    const btn = document.querySelector('#finished');
+    const why = document.querySelector('#finishedWhy');
+    const preview = document.querySelector('#preview');
+    const caseErr = document.querySelector('#caseErr');
+    const caseDup = document.querySelector('#caseDup');
+
+    function goUpcomingPayroll() {
+      targetPayday = upcoming;
+      location.hash = '#/payroll';
+    }
+
+    function check() {
+      const rate = active.find(r => r.id === selectEl.value);
+      preview.textContent = rate ? money(rate.jackAmountCents) : '—';
+      const ok = validCase(caseEl.value) && rate && reviewed && active.length;
+      btn.disabled = !ok;
+      why.textContent = !reviewed
+        ? 'Rates must be reviewed before logging finished work.'
+        : !active.length
+          ? 'Add at least one appliance and Jack amount before logging finished work.'
+          : !validCase(caseEl.value)
+            ? 'Enter a valid Case ID before logging finished work.'
+            : !rate
+              ? 'Select an appliance before logging finished work.'
+              : '';
+      caseErr.textContent = caseEl.value && !validCase(caseEl.value)
+        ? 'Case ID must be the practice work-order number only — one folder-safe name. Do not use patient names, initials, DOB, or chart numbers.'
+        : '';
+      const prior = validCase(caseEl.value) ? priorForCase(caseEl.value) : [];
+      caseDup.innerHTML = prior.length
+        ? prior.map(i =>
+            'Already logged ' + esc(i.acceptDate) + ' · ' + esc(i.applianceType) + ' · ' + money(i.amountCents)
+          ).join('<br>')
+        : '';
+    }
+
+    caseEl.oninput = selectEl.onchange = check;
+    caseEl.onblur = () => { caseEl.value = caseEl.value.trim(); check(); };
+    btn.onclick = finishWork;
+    document.querySelector('#paylink').onclick = goUpcomingPayroll;
+    document.querySelector('#benchPay').onclick = goUpcomingPayroll;
+    check();
+    bindItemButtons();
+  }
+
+  function finishWork() {
+    const caseEl = document.querySelector('#case');
+    const selectEl = document.querySelector('#appliance');
+    const caseId = caseEl.value.trim();
+    const today = localDate();
+    const rate = state.rates.find(r => r.id === selectEl.value && r.active);
+    if (!validCase(caseId) || !rate || !state.settings.ratesReviewed) return;
+    if (state.items.some(i => i.caseId === caseId && i.acceptDate === today) &&
+        !confirm('This Case ID is already on today\'s list. Log another item anyway?')) {
+      return;
+    }
+    const now = localTime();
+    const item = {
+      id: newId(),
+      caseId: caseId,
+      applianceType: rate.applianceType,
+      amountCents: rate.jackAmountCents,
+      acceptDate: today,
+      assignedPayday: nextPaydayAfter(today, state.settings.paydayWeekday),
+      includedInPayrollAt: null,
+      includedForPayday: null,
+      createdAt: now,
+      updatedAt: now
+    };
+    const next = state.items.concat(item);
+    if (!writeStore(KEYS.items, next)) {
+      notify('Could not save on this device. Finished was not recorded.');
+      return;
+    }
+    state.items = next;
+    caseEl.value = '';
+    notify('Logged ' + caseId + ' · assigned payday ' + prettyDate(item.assignedPayday) + '.');
+  }
+
+  function openFor(payday) {
+    return state.items
+      .filter(i => !i.includedInPayrollAt && i.assignedPayday === payday)
+      .sort((a, b) => a.acceptDate.localeCompare(b.acceptDate) || a.caseId.localeCompare(b.caseId) || a.id.localeCompare(b.id));
+  }
+
+  function renderPayroll() {
+    const today = localDate();
+    const upcoming = nextPaydayAfter(today, state.settings.paydayWeekday);
+    if (!targetPayday) targetPayday = upcoming;
+    const open = openFor(targetPayday);
+    const hist = state.items.filter(i => i.includedForPayday === targetPayday);
+    const early = state.items
+      .filter(i => !i.includedInPayrollAt && i.assignedPayday < upcoming)
+      .sort((a, b) => a.assignedPayday.localeCompare(b.assignedPayday));
+    const viewedDay = parseLocalDate(targetPayday).getDay();
+    const weekdayNote = viewedDay !== state.settings.paydayWeekday
+      ? '<div class="card notice">This list is a stored ' + WEEKDAYS[viewedDay] +
+        ' payday. Regular payday is now ' + WEEKDAYS[state.settings.paydayWeekday] +
+        '. Existing items keep the payday stored when they were finished.</div>'
+      : '';
+
+    shell(
+      'Payroll list for ' + prettyDate(targetPayday),
+      '<div class="card notice">' +
+        '<p>Payroll list contains only Case ID, appliance, amount, and acceptance date.</p>' +
+        '<p>Email draft does not send until you send it in your mail app.</p>' +
+        '<p>Copying, downloading, or opening a draft does not mark items included. Confirm only after the list is submitted to payroll.</p>' +
+      '</div>' +
+      weekdayNote +
+      (early.length
+        ? '<div class="card"><strong>' + early.length +
+          ' unincluded item(s) assigned to an earlier payday.</strong> ' +
+          '<button type="button" id="earliest" class="secondary">Go to earliest unincluded payday</button></div>'
+        : '') +
+      '<div class="row card">' +
+        '<button type="button" id="prev" class="secondary">Previous payday</button>' +
+        '<button type="button" id="next" class="secondary">Next payday</button>' +
+      '</div>' +
+      '<section class="card">' +
+        '<h2>Open items</h2>' +
+        (open.length ? open.map(i => itemRow(i, 'payroll')).join('') : '<p>No unincluded items are assigned to this payday.</p>') +
+        '<p class="total">Total owed: ' + money(open.reduce((n, i) => n + i.amountCents, 0)) + '</p>' +
+        '<div class="row">' +
+          '<button type="button" id="copy"' + (open.length ? '' : ' disabled') + '>Copy list</button>' +
+          '<button type="button" id="csv"' + (open.length ? '' : ' disabled') + '>Download CSV</button>' +
+          '<button type="button" id="email"' + (open.length ? '' : ' disabled') + '>Open email draft</button>' +
+          '<button type="button" id="mark"' + (open.length ? '' : ' disabled') + '>Mark included in payroll</button>' +
+        '</div>' +
+      '</section>' +
+      '<section class="card">' +
+        '<h2>Included history</h2>' +
+        (hist.length ? hist.map(i => itemRow(i, 'history')).join('') : '<p>No items have been marked included for this payday.</p>') +
+      '</section>'
+    );
+
+    document.querySelector('#prev').onclick = () => { targetPayday = addDays(targetPayday, -7); render(); };
+    document.querySelector('#next').onclick = () => { targetPayday = addDays(targetPayday, 7); render(); };
+    if (early.length) {
+      document.querySelector('#earliest').onclick = () => {
+        targetPayday = early[0].assignedPayday;
+        render();
+      };
+    }
+    document.querySelector('#copy').onclick = () => copyList(open);
+    document.querySelector('#csv').onclick = () => downloadCsv(open);
+    document.querySelector('#email').onclick = () => openMailto(open);
+    document.querySelector('#mark').onclick = () => confirmMark(open.map(i => i.id));
+    bindItemButtons();
+  }
+
+  function listText(rows) {
+    return 'IHS payday log — ' + prettyDate(targetPayday) + '\n' +
+      'Case ID · Appliance · Amount · Accept date\n\n' +
+      rows.map(i => i.caseId + ' · ' + i.applianceType + ' · ' + money(i.amountCents) + ' · ' + i.acceptDate).join('\n') +
+      '\n\nTotal owed: ' + money(rows.reduce((n, i) => n + i.amountCents, 0)) +
+      '\n\nIHS does not invoice the practice. This is Jack\'s W-2 piece-rate log.';
+  }
+
+  function askMarkIncluded(ids) {
+    openModal(
+      '<h2 id="modalTitle">Mark these items included in payroll for ' + prettyDate(targetPayday) + '?</h2>' +
+      '<p>Copying, downloading, or opening a draft does not mark items included. Confirm only after the list is submitted to payroll.</p>' +
+      '<div class="row">' +
+        '<button type="button" id="mYes">Mark included</button>' +
+        '<button type="button" id="mNo" class="secondary">Not yet</button>' +
+      '</div>'
+    );
+    document.querySelector('#mYes').onclick = () => { closeModal(); markIncluded(ids); };
+    document.querySelector('#mNo').onclick = closeModal;
+  }
+
+  async function copyList(rows) {
+    try {
+      await navigator.clipboard.writeText(listText(rows));
+      const btn = document.querySelector('#copy');
+      if (btn) {
+        btn.textContent = 'Copied';
+        setTimeout(() => { if (btn) btn.textContent = 'Copy list'; }, 2000);
+      }
+      askMarkIncluded(rows.map(i => i.id));
+    } catch (e) {
+      notify('Could not copy the list.');
+    }
+  }
+
+  function csvCell(v) {
+    let value = String(v);
+    if (/^[=+\-@]/.test(value)) value = "'" + value;
+    return '"' + value.replace(/"/g, '""') + '"';
+  }
+
+  function downloadCsv(rows) {
+    const csv = '\ufeffCase ID,Appliance,Amount,Accept date\r\n' +
+      rows.map(i => [i.caseId, i.applianceType, (i.amountCents / 100).toFixed(2), i.acceptDate].map(csvCell).join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ihs-payday-' + targetPayday + '.csv';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+    askMarkIncluded(rows.map(i => i.id));
+  }
+
+  function openMailto(rows) {
+    const to = EMAIL_RE.test(state.settings.payrollEmail || '') ? state.settings.payrollEmail : '';
+    const subject = 'Payday log for ' + WEEKDAYS[parseLocalDate(targetPayday).getDay()] + ', ' + targetPayday;
+    const href = 'mailto:' + encodeURIComponent(to) +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(listText(rows));
+    if (href.length > 1800) {
+      notify('Email draft cannot be opened here. Copy the list or download CSV.');
+      return;
+    }
+    try {
+      location.href = href;
+      askMarkIncluded(rows.map(i => i.id));
+    } catch (e) {
+      notify('Email draft cannot be opened here. Copy the list or download CSV.');
+    }
+  }
+
+  function confirmMark(ids) {
+    askMarkIncluded(ids);
+  }
+
+  function markIncluded(ids) {
+    try {
+      const stored = JSON.parse(localStorage.getItem(KEYS.items) || '[]');
+      const migrated = migrateList(stored, migrateItem);
+      if (!migrated) {
+        load();
+        notify('Could not save on this device. Nothing was marked included.');
+        return;
+      }
+      const now = localTime();
+      const set = new Set(ids);
+      const next = migrated.data.map(i =>
+        set.has(i.id) && i.assignedPayday === targetPayday && !i.includedInPayrollAt
+          ? { ...i, includedInPayrollAt: now, includedForPayday: targetPayday, updatedAt: now }
+          : i
+      );
+      if (!writeStore(KEYS.items, next)) {
+        notify('Could not save on this device. Nothing was marked included.');
+        return;
+      }
+      state.items = next;
+      notify('Items marked included in payroll.');
+    } catch (e) {
+      load();
+      notify('Could not save on this device. Nothing was marked included.');
+    }
+  }
+
+  function qRate(attr, id) {
+    return document.querySelector('[' + attr + '="' + CSS.escape(id) + '"]');
+  }
+
+  function readRatesForm() {
+    const next = [];
+    for (let i = 0; i < state.rates.length; i++) {
+      const rate = state.rates[i];
+      const typeEl = qRate('data-type', rate.id);
+      const amtEl = qRate('data-amt', rate.id);
+      const actEl = qRate('data-active', rate.id);
+      if (!typeEl || !amtEl || !actEl) return { ok: false, error: 'Rate form is incomplete.' };
+      const applianceType = typeEl.value.trim();
+      const dollars = Number(amtEl.value);
+      if (!applianceType || applianceType.length > 40 || !Number.isFinite(dollars) || dollars < 0 || dollars > 99999.99) {
+        return { ok: false, error: 'Enter a type and an amount from $0.00 to $99,999.99.' };
+      }
+      next.push({
+        ...rate,
+        applianceType: applianceType,
+        jackAmountCents: Math.round(dollars * 100),
+        active: actEl.checked
+      });
+    }
+    return { ok: true, rates: next };
+  }
+
+  function ratesFingerprint(list) {
+    return JSON.stringify(list.map(r => ({
+      id: r.id,
+      applianceType: r.applianceType,
+      jackAmountCents: r.jackAmountCents,
+      active: r.active,
+      isSample: r.isSample
+    })));
+  }
+
+  function persistRates(next, reviewed) {
+    const nextSettings = { ...state.settings, ratesReviewed: reviewed };
+    if (reviewed) {
+      if (!writeStore(KEYS.rates, next)) {
+        notify('Could not save on this device.');
+        return false;
+      }
+      state.rates = next;
+      if (!writeStore(KEYS.settings, nextSettings)) {
+        notify('Rates saved, but this browser could not mark them reviewed. Do not log until rates are reviewed again.');
+        return false;
+      }
+      state.settings = nextSettings;
+      return true;
+    }
+    if (!writeStore(KEYS.settings, nextSettings)) {
+      notify('Could not save on this device.');
+      return false;
+    }
+    state.settings = nextSettings;
+    if (!writeStore(KEYS.rates, next)) {
+      notify('Could not save rates on this device. Logging is blocked until rates can be saved and reviewed.');
+      return false;
+    }
+    state.rates = next;
+    return true;
+  }
+
+  function renderRates() {
+    const usable = usableRates().length > 0;
+    const reviewed = state.settings.ratesReviewed;
+    shell(
+      'Rates',
+      '<div class="card notice">' +
+        '<strong>SAMPLE: nightguard lab baseline $120; Jack amount $84. Edit before use.</strong>' +
+        '<p>Review SAMPLE rates and edit them to match the practice before logging finished work.</p>' +
+        '<p>Saving, adding, deleting, or changing which rates are active clears “rates reviewed.” Logging cannot continue until you mark rates reviewed again.</p>' +
+      '</div>' +
+      (!usable ? '<div class="card notice">Add at least one appliance and Jack amount before logging finished work.</div>' : '') +
+      '<div class="card">' +
+        '<div id="rates">' +
+          state.rates.map(r =>
+            '<div class="item rate">' +
+              '<input aria-label="Appliance type" maxlength="40" value="' + esc(r.applianceType) + '" data-type="' + esc(r.id) + '">' +
+              '<input aria-label="Jack amount" type="number" min="0" max="99999.99" step=".01" value="' +
+                (r.jackAmountCents / 100).toFixed(2) + '" data-amt="' + esc(r.id) + '">' +
+              '<label class="check"><input type="checkbox" data-active="' + esc(r.id) + '"' +
+                (r.active ? ' checked' : '') + '> Active</label>' +
+              '<span>' +
+                (r.isSample ? '<span class="badge">SAMPLE</span> ' : '') +
+                '<button type="button" class="danger" data-rate-del="' + esc(r.id) + '">Delete</button>' +
+              '</span>' +
+            '</div>'
+          ).join('') +
+        '</div>' +
+        '<div class="row">' +
+          '<button type="button" id="saveRates">Save rates</button>' +
+          '<button type="button" id="addRate" class="secondary">Add rate</button>' +
+          (reviewed
+            ? '<strong>Rates reviewed for this practice</strong>'
+            : '<button type="button" id="review" class="secondary">Mark rates reviewed</button>') +
+        '</div>' +
+      '</div>'
+    );
+
+    document.querySelector('#addRate').onclick = addRate;
+    document.querySelector('#saveRates').onclick = () => saveRates(false);
+    const review = document.querySelector('#review');
+    if (review) review.onclick = () => saveRates(true);
+    app.querySelectorAll('[data-rate-del]').forEach(btn => {
+      btn.onclick = () => deleteRate(btn.getAttribute('data-rate-del'));
+    });
+  }
+
+  function addRate() {
+    const read = readRatesForm();
+    const base = read.ok ? read.rates : state.rates;
+    const next = base.concat([{
+      id: newId(),
+      applianceType: '',
+      jackAmountCents: 0,
+      active: true,
+      isSample: false,
+      createdAt: localTime()
+    }]);
+    if (!persistRates(next, false)) return;
+    notify('Added a rate. Review rates before logging.');
+  }
+
+  function deleteRate(id) {
+    if (!confirm('Delete this rate?')) return;
+    const read = readRatesForm();
+    let next;
+    if (read.ok) next = read.rates.filter(r => r.id !== id);
+    else next = state.rates.filter(r => r.id !== id);
+    if (!persistRates(next, false)) return;
+    notify('Rate deleted. Review rates before logging.');
+  }
+
+  function saveRates(asReviewed) {
+    const read = readRatesForm();
+    if (!read.ok) {
+      notify(read.error);
+      return false;
+    }
+    const changed = ratesFingerprint(read.rates) !== ratesFingerprint(state.rates);
+    const reviewed = asReviewed ? true : (changed ? false : state.settings.ratesReviewed);
+    if (!persistRates(read.rates, reviewed)) return false;
+    if (asReviewed) notify('Rates marked reviewed.');
+    else if (changed) notify('Rates saved. Review rates before logging.');
+    else notify('Rates saved.');
+    return true;
+  }
+
+  function renderSettings() {
+    shell(
+      'Settings',
+      '<div class="card notice">' +
+        '<p>Clearing browser data or using another browser/device can lose this log.</p>' +
+        '<p>Data stays in this browser on this device and does not sync to another device.</p>' +
+        '<p>Changing the payday weekday does not move work already finished. New weekday applies only to subsequently finished work.</p>' +
+      '</div>' +
+      '<div class="card grid">' +
+        '<div>' +
+          '<label for="weekday">Regular payday weekday</label>' +
+          '<select id="weekday">' +
+            WEEKDAYS.map((name, i) =>
+              '<option value="' + i + '"' + (i === state.settings.paydayWeekday ? ' selected' : '') + '>' + name + '</option>'
+            ).join('') +
+          '</select>' +
+        '</div>' +
+        '<div>' +
+          '<label for="emailSet">Payroll email (optional, for mailto drafts)</label>' +
+          '<input id="emailSet" type="email" value="' + esc(state.settings.payrollEmail || '') + '">' +
+        '</div>' +
+        '<div class="full row">' +
+          '<button type="button" id="saveSettings">Save settings</button>' +
+          '<button type="button" id="wipe" class="danger">Delete all local payday data</button>' +
+        '</div>' +
+      '</div>'
+    );
+    document.querySelector('#saveSettings').onclick = saveSettings;
+    document.querySelector('#wipe').onclick = wipe;
+  }
+
+  function saveSettings() {
+    const oldWeekday = state.settings.paydayWeekday;
+    const next = {
+      ...state.settings,
+      paydayWeekday: Number(document.querySelector('#weekday').value),
+      payrollEmail: document.querySelector('#emailSet').value.trim()
+    };
+    if (!writeStore(KEYS.settings, next)) {
+      notify('Could not save on this device.');
+      return;
+    }
+    state.settings = next;
+    notify(oldWeekday !== next.paydayWeekday
+      ? 'New payday weekday applies to work finished from now on. Existing items keep their assigned payday.'
+      : 'Settings saved.');
+  }
+
+  function wipe() {
+    if (!confirm('Delete all payday data on this browser? Rates, settings, and log items will be removed. This cannot be undone.')) return;
+    try {
+      Object.keys(KEYS).forEach(k => localStorage.removeItem(KEYS[k]));
+      load();
+      targetPayday = null;
+      notify('All local payday data deleted.');
+    } catch (e) {
+      notify('Could not save on this device.');
+    }
+  }
+
+  function removeItem(id) {
+    const item = state.items.find(x => x.id === id);
+    if (!item) return;
+    if (!confirm('Delete this payday item? This cannot be undone.')) return;
+    if (item.includedInPayrollAt && !confirm('This item was marked included in payroll. Delete anyway?')) return;
+    const next = state.items.filter(x => x.id !== id);
+    if (!writeStore(KEYS.items, next)) {
+      notify('Could not save on this device.');
+      return;
+    }
+    state.items = next;
+    render();
+  }
+
+  function reopenItem(id) {
+    if (!confirm('This item may already be in payroll. Reopen only to correct a mistake.')) return;
+    const now = localTime();
+    const next = state.items.map(i =>
+      i.id === id ? { ...i, includedInPayrollAt: null, includedForPayday: null, updatedAt: now } : i
+    );
+    if (!writeStore(KEYS.items, next)) {
+      notify('Could not save on this device.');
+      return;
+    }
+    state.items = next;
+    notify('Item reopened. Payroll may already have it.');
+  }
+
+  function editItem(id) {
+    const item = state.items.find(x => x.id === id);
+    if (!item || item.includedInPayrollAt) return;
+    const today = localDate();
+    const options = state.rates.filter(r => r.active || r.applianceType === item.applianceType);
+    const weekdayMismatch = parseLocalDate(item.assignedPayday).getDay() !== state.settings.paydayWeekday;
+    openModal(
+      '<h2 id="modalTitle">Edit payday item</h2>' +
+      '<div class="grid">' +
+        '<div><label for="eCase">Case ID</label><input id="eCase" maxlength="80" value="' + esc(item.caseId) + '"></div>' +
+        '<div><label for="eType">Appliance type</label><select id="eType">' +
+          options.map(r =>
+            '<option value="' + esc(r.id) + '"' + (r.applianceType === item.applianceType ? ' selected' : '') + '>' +
+            esc(r.applianceType) + (r.active ? '' : ' (inactive)') + '</option>'
+          ).join('') +
+        '</select></div>' +
+        '<div><label for="eDate">Accept date</label><input id="eDate" type="date" max="' + today + '" value="' + esc(item.acceptDate) + '"></div>' +
+        '<div><label for="eAmt">Amount</label><input id="eAmt" type="number" min="0" max="99999.99" step=".01" value="' +
+          (item.amountCents / 100).toFixed(2) + '"></div>' +
+        '<label class="full check"><input id="eReassign" type="checkbox"> Reassign to next ' +
+          WEEKDAYS[state.settings.paydayWeekday] + ' after accept date</label>' +
+      '</div>' +
+      (weekdayMismatch
+        ? '<p>Assigned payday is still ' + esc(item.assignedPayday) +
+          ' because the weekday setting changed after this was finished.</p>'
+        : '') +
+      '<div class="row">' +
+        '<button type="button" id="eSave">Save corrections</button>' +
+        '<button type="button" id="eCancel" class="secondary">Cancel</button>' +
+      '</div>'
+    );
+    const typeEl = document.querySelector('#eType');
+    const amtEl = document.querySelector('#eAmt');
+    typeEl.onchange = () => {
+      const rate = state.rates.find(r => r.id === typeEl.value);
+      if (rate) amtEl.value = (rate.jackAmountCents / 100).toFixed(2);
+    };
+    document.querySelector('#eCancel').onclick = closeModal;
+    document.querySelector('#eSave').onclick = () => {
+      const caseId = document.querySelector('#eCase').value.trim();
+      const date = document.querySelector('#eDate').value;
+      const dollars = Number(amtEl.value);
+      const rate = state.rates.find(r => r.id === typeEl.value);
+      if (!validCase(caseId)) {
+        alert('Case ID must be the practice work-order number only — one folder-safe name. Do not use patient names, initials, DOB, or chart numbers.');
+        return;
+      }
+      if (!rate || !validDateOnOrBefore(date, today) || !Number.isFinite(dollars) || dollars < 0 || dollars > 99999.99) return;
+      if (!confirm('Save corrections?')) return;
+      const reassign = date !== item.acceptDate || document.querySelector('#eReassign').checked;
+      const now = localTime();
+      const next = state.items.map(x => x.id === id ? {
+        ...x,
+        caseId: caseId,
+        applianceType: rate.applianceType,
+        amountCents: Math.round(dollars * 100),
+        acceptDate: date,
+        assignedPayday: reassign ? nextPaydayAfter(date, state.settings.paydayWeekday) : x.assignedPayday,
+        updatedAt: now
+      } : x);
+      if (!writeStore(KEYS.items, next)) {
+        closeModal();
+        notify('Could not save on this device.');
+        return;
+      }
+      state.items = next;
+      closeModal();
+      notify('Corrections saved.');
+    };
+  }
+
+  function renderUnreadable() {
+    shell(
+      'Payday data unavailable',
+      '<div class="card error">Local payday data on this browser is unreadable. Existing records were not replaced.</div>' +
+      '<button type="button" id="wipe" class="danger">Delete all local payday data</button>'
+    );
+    document.querySelector('#wipe').onclick = wipe;
+  }
+
+  function route() {
+    let hash = location.hash;
+    if (!ROUTES.includes(hash)) {
+      hash = '#/log';
+      location.hash = hash;
+    }
+    document.querySelectorAll('nav a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === hash);
+    });
+    render();
+  }
+
+  function render() {
+    if (state.unreadable) {
+      renderUnreadable();
+      return;
+    }
+    const hash = location.hash || '#/log';
+    if (hash === '#/log') renderLog();
+    else if (hash === '#/payroll') renderPayroll();
+    else if (hash === '#/rates') renderRates();
+    else if (hash === '#/settings') renderSettings();
+    else renderLog();
+  }
+
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !modal.classList.contains('hide')) closeModal();
+  });
+  window.addEventListener('hashchange', route);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      load();
+      render();
+    }
+  });
+  load();
+  route();
+})();
+</script>
 </body>
 </html>

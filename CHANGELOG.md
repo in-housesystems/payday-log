@@ -2,6 +2,13 @@
 
 Newest first. This is the human list of what went live. GitHub still has the technical commits.
 
+## Sep 5, 2026 — Log bench card and Case ID reminder
+
+- Log shows unincluded work assigned to the upcoming payday: count, total, date, and a jump to that Payroll list.
+- Typing a Case ID that already exists on a saved item shows a muted warning with prior accept date, appliance, and amount. Same-day duplicate confirm is unchanged.
+- Case ID field notes that the same practice Case ID as Practice Files should be used; the apps do not share data.
+- Live at https://in-housesystems.com/payday-log/ after Pages picks up master.
+
 ## Sep 4, 2026 — Architecture pass (no change)
 
 - Looked at the live app and this repo. No structure change was needed.
