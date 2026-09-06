@@ -16,3 +16,4 @@ fixtures/
 *.csv
 .env
 .env.*
+__grok/

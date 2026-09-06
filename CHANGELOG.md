@@ -2,6 +2,13 @@
 
 Newest first. This is the human list of what went live. GitHub still has the technical commits.
 
+## Sep 5, 2026 — Faster keyboard navigation
+
+- Added a keyboard-visible skip link to jump directly past the sticky navigation.
+- Labeled the primary navigation for screen readers.
+- Payroll rules, rates, browser-only storage, and the live URL did not change.
+- Local scratch output under `__grok/` is now ignored.
+
 ## Sep 5, 2026 — Log bench card and Case ID reminder
 
 - Log shows unincluded work assigned to the upcoming payday: count, total, date, and a jump to that Payroll list.
